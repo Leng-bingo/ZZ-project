@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "excel-export": "^0.5.1",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "node-excel-export": "^1.4.4",
+    "node-schedule": "^2.0.0",
+    "nodemon": "^2.0.7",
+    "silly-datetime": "^0.1.2"
+  }
+}
