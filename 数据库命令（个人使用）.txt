@@ -1,0 +1,75 @@
+SELECT count(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA='weibo'; 
+
+-- 清除缓存
+SET GLOBAL information_schema_stats_expiry=0;
+SET @@GLOBAL.information_schema_stats_expiry=0;
+SET SESSION information_schema_stats_expiry=0;
+SELECT TABLE_NAME,TABLE_ROWS,CREATE_TIME,UPDATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'weibo' ORDER BY TABLE_ROWS DESC
+
+SELECT TABLE_NAME,UPDATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'weibo' ORDER BY UPDATE_TIME DESC
+
+-- 最对的语句，查询表下所有数量
+SELECT sum(table_rows) FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = 'weibo' order by table_rows desc;
+
+--  查询数据大小
+
+select concat(round(sum(data_length/1024/1024),2),'MB') as data from information_schema.tables
+
+-- 删除某一列
+ALTER TABLE weibo DROP COLUMN user_id,DROP screen_name
+-- ,article_url,topics,at_users,source,attitudes_count
+
+-- 查询标签都有啥
+select * from label
+
+-- 查询是否重复
+select * from label where locate('黑龙江1', label1);
+insert ignore into label (label1) values ('吉林');
+replace into label (label1) values ('吉林');
+
+-- 模糊查询
+select * from weibo where item1='上海' and text like '%上海%'
+select count(*) as count from weibo where item1='上海' and text like '%北京%';
+select count(*) as count from weibo where item1='上海' and text like '%北京%';select * from weibo where item1='上海' and text like '%北京%' order by myid desc limit 20 offset 0
+select count(*) as count from weibo where text like '%北京%';select * from weibo where text like '%上海%'
+
+-- 修改微博数据
+UPDATE weibo set text='真不错',created_at= '2021-06-04 23:19:00',item1='辽宁' ,item2='' ,item3='' where myid='143' 
+
+insert into weibo (created_at, text, item1, item2, item3) values ('2021-07-07 15:27:09','123','黑龙江','','')
+
+-- 查询标签总个数
+SET GLOBAL information_schema_stats_expiry=0;
+SET @@GLOBAL.information_schema_stats_expiry=0;
+SET SESSION information_schema_stats_expiry=0;
+SELECT TABLE_NAME,TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'weibo' ORDER BY TABLE_ROWS DESC
+
+-- 添加表
+-- 按标签查询每个标签下有多少数据
+select * from label
+select count(*) as count from weibo where item1='宁夏';select count(*) as count from weibo where item1='上海';
+
+insert into weibo_minute (count) values ('555');
+insert into weibo_minute (count) values ('558');
+insert into weibo_minute (count) values ('559');
+select * from weibo_minute ORDER BY id desc limit 2
+
+-- 查询当前时间，在插入表中
+select DATE_FORMAT(now(),'%Y-%m-%d %h:%i:%s') from dual;
+select DATE_FORMAT(now(),'%Y-%m-%d') as '日期' from dual;
+select DATE_FORMAT(now(),'%a') as '星期' from dual;
+insert into weibo_day (count,time,xingqi) values ('150','2021-07-01','Thu');
+insert into weibo_day (count,time,xingqi) values ('130','2021-07-02','Fri');
+update weibo_day set count='200',time='2021-07-01',xingqi='Thu' where xingqi='Thu';
+select * from weibo_day Order by time
+
+
+
+select count(*) from label
+select count(*) from weibo
+select * from weibo_minute order by id desc limit 2
+
+select count(*) from 河北 where location !=""
+
+select * from weibo where text like '%真好%' limit 2
+delete from weibo where text like '%真好%' limit 2
